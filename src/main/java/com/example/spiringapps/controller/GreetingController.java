@@ -1,17 +1,19 @@
 package com.example.spiringapps.controller;
 
 import com.example.spiringapps.controller.model.GreetingResponse;
+import com.example.spiringapps.service.GreetingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/sample")
 @RestController
 @RequiredArgsConstructor
-public class SampleController {
+public class GreetingController {
+    private final GreetingService service;
+
     @GetMapping(path = "/greet")
     public GreetingResponse greet() {
-        return GreetingResponse.builder().word("Hello Spring Apps Sample").build();
+        final String word = service.greet();
+        return new GreetingResponse(word);
     }
 }
